@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import calculateAvgRating from "./../utils/avgRating";
 import avatar from "../assets/images/avatar.jpg";
 import Booking from "../components/Booking/Booking";
-import Newsletter from "../shared/Newsletter";
+// import Newsletter from "../shared/Newsletter";
 import { BASE_URL } from "./../utils/config";
 import useFetch from "./../hooks/useFetch";
 import { AuthContext } from "./../context/AuthContext";
@@ -121,7 +121,7 @@ const TourDetails = () => {
                       </span>
                       <span>
                         <i class="ri-map-pin-time-line"></i>
-                        {duration} 
+                        {duration}
                       </span>
 
                       <span>
@@ -182,10 +182,9 @@ const TourDetails = () => {
                               <div>
                                 <h5>{review.username}</h5>
                                 <p>
-                                  {new Date(review.createdAt).toLocaleDateString(
-                                    "en-US",
-                                    options
-                                  )}
+                                  {new Date(
+                                    review.createdAt
+                                  ).toLocaleDateString("en-US", options)}
                                 </p>
                               </div>
                               <span className="d-flex align-items-center">
@@ -209,7 +208,7 @@ const TourDetails = () => {
           )}
         </Container>
       </section>
-      <Newsletter />
+      {/* <Newsletter /> */}
     </>
   );
 };
