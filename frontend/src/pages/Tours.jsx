@@ -1,28 +1,38 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import CommonSection from "../shared/CommonSection";
 import "../styles/tour.css";
 import TourCard from "./../shared/TourCard";
-import SearchBar from "./../shared/SearchBar";
-// import Newsletter from "./../shared/Newsletter";
+import CategorySelector from "../shared/SearchBar";
 import { Container, Row, Col } from "reactstrap";
-import useFetch from '../hooks/useFetch'
-import { BASE_URL } from "../utils/config";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const Tours = () => {
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  const location = useLocation();
+  const { category } = location.state || { category: "All" };
 
-  const [pageCount, setPageCount] = useState(0)
-  const [page, setPage] = useState(0)
+  const fetchTours = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://jai.marketomobile.com/api/user/tour_nam/${category}`
+      );
+      console.log(res.data.data);
+      setTours(res.data.data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message || "Something went wrong");
+      setLoading(false);
+    }
+  };
 
-  const {data:tours, loading, error} = useFetch(`${BASE_URL}/tours?page=${page}`)
-  const {data:tourCount} = useFetch(`${BASE_URL}/tours/search/getTourCount`)
-
-  useEffect(()=>{
-
-    const pages = Math.ceil(tourCount/8)
-    setPageCount(pages)
-    window.scrollTo(0,0)
-  },[page, tourCount, tours])
+  useEffect(() => {
+    fetchTours();
+  }, [category]);
 
   return (
     <>
@@ -30,7 +40,7 @@ const Tours = () => {
       <section>
         <Container>
           <Row>
-            <SearchBar />
+            <CategorySelector />
           </Row>
         </Container>
       </section>
@@ -38,33 +48,17 @@ const Tours = () => {
         <Container>
           {loading && <h4 className="text-center pt-5">Loading.......</h4>}
           {error && <h4 className="text-center pt-5">{error}</h4>}
-          {!loading && !error && (
+          {!loading && !error && Array.isArray(tours) && (
             <Row>
-              {tours?.map((tour) => (
+              {tours.map((tour) => (
                 <Col lg="3" md="6" sm="6" className="mb-4" key={tour._id}>
-                  {" "}
                   <TourCard tour={tour} />
                 </Col>
               ))}
-
-              <Col lg="12">
-                <div className="pagination d-flex align-items-center justify-content-center mt-4 gap-3">
-                  {[...Array(pageCount).keys()].map((number) => (
-                    <span
-                      key={number}
-                      onClick={() => setPage(number)}
-                      className={page === number ? "active__page" : ""}
-                    >
-                      {number + 1}
-                    </span>
-                  ))}
-                </div>
-              </Col>
             </Row>
           )}
         </Container>
       </section>
-      {/* <Newsletter /> */}
     </>
   );
 };

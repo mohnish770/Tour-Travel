@@ -25,11 +25,12 @@ const Header = () => {
   const menuRef = useRef(null);
   const navigate = useNavigate()
   const {user, dispatch} = useContext(AuthContext)
+  console.log("tera bhai", user);
 
-  const logout = () =>{
-    dispatch({type:'LOGOUT'})
-    navigate('/')
-  }
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
 
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
@@ -50,7 +51,7 @@ const Header = () => {
     return window.removeEventListener("scroll", stickyHeaderFunc);
   });
 
-  const togglemenu = ()=> menuRef.current.classList.toggle('show__menu')
+  const togglemenu = () => menuRef.current.classList.toggle("show__menu");
 
   return (
     <header className="header" ref={headerRef}>
@@ -79,22 +80,23 @@ const Header = () => {
             </div>
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-items-center gap-4">
-
-
-              {
-                user? <>
-                  <h5 className="mb-0">{user.username}</h5>
-                  <Button className="btn btn-dark" onClick={logout}>Logout</Button>
-                </> : <>
-                <Button className="btn secondary__btn">
-                  <Link to="/login">Login</Link>
-                </Button>
-                <Button className="btn primary__btn">
-                  <Link to="/register">Register</Link>
-                </Button>
-                </>
-              }
-                
+                {user ? (
+                  <>
+                    <h5 className="mb-0">{user.data.name}</h5>
+                    <Button className="btn btn-dark" onClick={logout}>
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button className="btn secondary__btn">
+                      <Link to="/login">Login</Link>
+                    </Button>
+                    <Button className="btn primary__btn">
+                      <Link to="/register">Register</Link>
+                    </Button>
+                  </>
+                )}
               </div>
 
               <span className="mobile__menu" onClick={togglemenu}>

@@ -45,8 +45,8 @@ const Footer = () => {
             <div className="logo">
               <img src={logo} alt="" />
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Beatae, excepturi.
+                Tour and Travel Company situated in Shimla, Himachal Pradesh to
+                make your dream tour a reality.
               </p>
 
               <div className="social__links d-flex align-items-center gap-4">
@@ -89,32 +89,39 @@ const Footer = () => {
             <h5 className="footer__link-title">Contact</h5>
 
             <ListGroup className="footer__quick-links">
-              
-                <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
-                  <h6 className="mb-0 d-flex align-items-center gap-2">
-                    <span><i class="ri-map-pin-line"></i></span>
-                    Address: 
-                  </h6>
-                  <p className="mb-0">Shimla, Himachal Pradesh</p>
-                </ListGroupItem>
-                <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
-                  <h6 className="mb-0 d-flex align-items-center gap-2">
-                    <span><i class="ri-mail-line"></i></span>
-                    Email: 
-                  </h6>
-                  <p className="mb-0">something@something.com</p>
-                </ListGroupItem>
-                <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
-                  <h6 className="mb-0 d-flex align-items-center gap-2">
-                    <span><i class="ri-phone-fill"></i></span>
-                    Phone: 
-                  </h6>
-                  <p className="mb-0">9876543210</p>
-                </ListGroupItem>
-              
+              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
+                <h6 className="mb-0 d-flex align-items-center gap-2">
+                  <span>
+                    <i class="ri-map-pin-line"></i>
+                  </span>
+                  Address:
+                </h6>
+                <p className="mb-0">Shimla, Himachal Pradesh</p>
+              </ListGroupItem>
+              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
+                <h6 className="mb-0 d-flex align-items-center gap-2">
+                  <span>
+                    <i class="ri-mail-line"></i>
+                  </span>
+                  Email:
+                </h6>
+                <p className="mb-0">jpsharma704@gmail.com</p>
+              </ListGroupItem>
+              <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
+                <h6 className="mb-0 d-flex align-items-center gap-2">
+                  <span>
+                    <i class="ri-phone-fill"></i>
+                  </span>
+                  Phone:
+                </h6>
+                <div>
+                  <p className="mb-0">+91 9459789190/</p>
+                  <p className="mb-0">+91 7018984511</p>
+                </div>
+              </ListGroupItem>
             </ListGroup>
           </Col>
-          <Col lg='12' className="text-center pt-5">
+          <Col lg="12" className="text-center pt-5">
             <p className="copyright">Copyright {year} All rights reserved</p>
           </Col>
         </Row>

@@ -8,18 +8,18 @@ import customizationImg from "../assets/images/customization.png";
 const servicesData = [
   {
     imgUrl: weatherImg,
-    title: "Calculate Weather",
-    desc: "Something Something Something Something Something Something Something Something Something",
+    title: "Best Services",
+    desc: "We will provide you services like cabs, busses and hotels. ",
   },
   {
     imgUrl: guideImg,
     title: "Best Tour Guide",
-    desc: "Something Something Something Something Something Something Something Something Something",
+    desc: "During the Trips we will provide you the best tour guides there is.",
   },
   {
     imgUrl: customizationImg,
     title: "Customization",
-    desc: "Something Something Something Something Something Something Something Something Something",
+    desc: "You can also customize your plan anytime you want.",
   },
 ];
 

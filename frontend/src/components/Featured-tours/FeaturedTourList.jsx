@@ -1,30 +1,66 @@
 import React from "react";
+import Slider from "react-slick";
 import TourCard from "../../shared/TourCard";
-import { Col } from "reactstrap";
 import useFetch from "./../../hooks/useFetch.js";
-import { BASE_URL } from "./../../utils/config.js";
+import "./featuredTourList.css";
 
 const FeaturedTourList = () => {
-  const { data: featuredTours, loading, error } = useFetch(
-    `${BASE_URL}/tours/search/getFeaturedTour`
-  );
+  const {
+    data: featuredTours,
+    loading,
+    error,
+  } = useFetch(`https://jai.marketomobile.com/api/user/tour`);
 
-  // console.log(featuredTours);
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 1000,
+    swipeToSlide: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 4,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+    ],
+  };
 
   return (
-    <>
-      {
-        loading && <h4>Loading......</h4>
-      }
-      {
-        error && <h4>{error}</h4>
-      }
-      {!loading && !error && featuredTours?.map((tour) => (
-        <Col lg="3" md='6' sm='6' className="mb-4" key={tour._id}>
-          <TourCard tour={tour} />
-        </Col>
-      ))}
-    </>
+    <div className="featured-tour-slider">
+      {loading && <h4>Loading......</h4>}
+      {error && <h4>{error}</h4>}
+      {!loading && !error && (
+        <Slider {...settings}>
+          {featuredTours?.map((tour) => (
+            <div key={tour._id} className="scroll-item">
+              <TourCard tour={tour} />
+            </div>
+          ))}
+        </Slider>
+      )}
+    </div>
   );
 };
 

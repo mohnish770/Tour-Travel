@@ -1,0 +1,92 @@
+/* General Container Styling */
+.tour-form-container {
+      background-color: #f8f9fa;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px;
+    }
+    
+    .tour-form-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+    
+    /* Form Field Styling */
+    .tour-form input,
+    .tour-form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 50px;
+      background-color: #f1f1f1;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      color: #555;
+      transition: all 0.3s ease;
+    }
+    
+    .tour-form input:focus,
+    .tour-form textarea:focus {
+      outline: none;
+      background-color: #ffffff;
+      box-shadow: 0 0 8px var(--secondary-color);
+    }
+    
+    /* Button Container */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    /* Button Styling */
+    .btn-submit {
+      padding: 10px 20px;
+      background-color: var(--secondary-color);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-submit:hover {
+      background-color:  var(--primary-color);
+      box-shadow: var(--secondary-color);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .tour-form-container {
+        padding: 20px 15px;
+      }
+    
+      .tour-form-title {
+        font-size: 1.5rem;
+      }
+    
+      .btn-submit {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .tour-form input,
+      .tour-form textarea {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+      }
+    
+      .btn-submit {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+    }
+    

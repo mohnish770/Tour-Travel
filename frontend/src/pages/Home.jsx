@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../styles/home.css";
 import { Container, Row, Col } from "reactstrap";
 import heroImg from "../assets/images/hero-img01.jpg";
@@ -6,15 +7,25 @@ import heroImg02 from "../assets/images/hero-img02.jpg";
 import heroVideo from "../assets/images/hero-video.mp4";
 import worldImg from "../assets/images/world.png";
 import Subtitle from "../shared/Subtitle";
-import SearchBar from "../shared/SearchBar";
 import ServiceList from "../services/ServiceList";
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList";
-import experienceImg from '../assets/images/experience.png'
+import experienceImg from "../assets/images/experience.png";
 import MasonryImagesGallery from "../components/image-gallery/MasonryImagesGallery";
 import Testimonials from "../components/Testimonial/Testimonials";
-// import Newsletter from "../shared/Newsletter";
+import TourForm from "./TourForm";
 
 const Home = () => {
+  const { section } = useParams(); // Extract the section parameter from the route
+
+  useEffect(() => {
+    if (section) {
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [section]); // Run whenever the section parameter changes
+
   return (
     <>
       <section>
@@ -31,18 +42,16 @@ const Home = () => {
                   <span className="highlight"> memories</span>
                 </h1>
                 <p>
-                  Welcome to the kaleidoscopic world of India, a land where
-                  ancient traditions seamlessly blend with modern marvels. From
-                  the majestic Himalayas to the sun-kissed beaches of the south,
-                  India is a tapestry of diverse landscapes, vibrant festivals,
-                  and warm hospitality. Immerse yourself in a journey of
-                  discovery as you navigate through bustling markets, savor
-                  delectable cuisine, and witness the living history embedded in
-                  its architectural wonders.
+                  Welcome to the colorful and exciting world of India, a country
+                  where old traditions mix beautifully with modern life. From
+                  the grand Himalayas in the north to the sunny beaches in the
+                  south, India offers a variety of landscapes, lively festivals,
+                  and friendly people. Explore busy markets, enjoy delicious
+                  food, and see amazing historical buildings that tell stories
+                  of the past.
                 </p>
               </div>
             </Col>
-
             <Col lg="2">
               <div className="hero__img-box">
                 <img src={heroImg} alt="" />
@@ -58,12 +67,10 @@ const Home = () => {
                 <img src={heroImg02} alt="" />
               </div>
             </Col>
-
-            <SearchBar />
           </Row>
         </Container>
       </section>
-      {/*Hero Section*/}
+
       <section>
         <Container>
           <Row>
@@ -75,8 +82,18 @@ const Home = () => {
           </Row>
         </Container>
       </section>
+      <section>
+        <Container>
+          <Row>
+            <Col lg="3">
+              <h5 className="services__subtitle">Plan Your Customized Tour</h5>
+              {/* <h2 className="services__title">We offer our best service</h2> */}
+            </Col>
+            <TourForm />
+          </Row>
+        </Container>
+      </section>
 
-      {/*Featured Tour Section */}
       <section>
         <Container>
           <Row>
@@ -88,20 +105,19 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-      {/* Experience Section */}
+
       <section>
         <Container>
           <Row>
             <Col lg="6">
               <div className="experience__content">
                 <Subtitle subtitle={"Experience"} />
-
                 <h2>
                   With our all Experience <br /> we will serve you
                 </h2>
                 <p>
-                  something something something something something something{" "}
-                  <br /> something something something something
+                  With all our expertise and dedication, <br /> we are committed
+                  to serving you with excellence.
                 </p>
               </div>
 
@@ -128,8 +144,8 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-      {/* Gallery Section */}
-      <section>
+
+      <section id="gallery">
         <Container>
           <Row>
             <Col lg="12">
@@ -144,7 +160,7 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-      {/* Testimonial Section */}
+
       <section>
         <Container>
           <Row>
@@ -160,7 +176,6 @@ const Home = () => {
           </Row>
         </Container>
       </section>
-      {/* <Newsletter /> */}
     </>
   );
 };

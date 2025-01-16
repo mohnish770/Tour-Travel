@@ -10,27 +10,46 @@ import Booking from "../components/Booking/Booking";
 import { BASE_URL } from "./../utils/config";
 import useFetch from "./../hooks/useFetch";
 import { AuthContext } from "./../context/AuthContext";
+// import { FaCircle } from "react-icons/fa";
 
 const TourDetails = () => {
   const { id } = useParams();
   const reviewMsgRef = useRef("");
   const [tourRating, setTourRating] = useState(null);
   const { user } = useContext(AuthContext);
-
-  const { data: tour, loading, error } = useFetch(`${BASE_URL}/tours/${id}`);
+  console.log(id);
 
   const {
-    photo,
-    title,
-    desc,
+    data: tour,
+    loading,
+    error,
+  } = useFetch(`https://jai.marketomobile.com/api/user/tour/${id}`);
+  // console.log("flag", tour);
+  // "id": 1,
+  //       "name": "Heart of Himachal",
+  //       "duration": "03 Nights / 04 Days Volvo Package",
+  //       "path": "Delhi – Manali – Delhi",
+  //       "disc": "Day 1: Arrival Manali + Local Sightseeing;\r\nDay 2: Manali - Full-day Trip to Solang Valley;\r\nDay 3: Manali (Full-day Trip to Kullu (45km) and Manikaran (80 km);\r\nDay 4: Manali – Delhi",
+  //       "dis_price": "1000",
+  //       "price": "1000",
+  //       "rev": "5",
+  //       "product_image": null,
+  //       "main": "Himachal Pradesh",
+  //       "status": 1,
+
+  const {
+    product_image,
+    name,
+    disc,
     price,
-    address,
+    main,
     reviews,
     city,
-    maxGroupSize,
+    path,
     duration,
+    rev,
   } = tour;
-
+  const arr = disc?.split(";");
   const { totalRating, avgRating } = calculateAvgRating(reviews);
 
   const options = { day: "numeric", month: "long", year: "numeric" };
@@ -65,7 +84,7 @@ const TourDetails = () => {
       if (!res.ok) {
         return alert(result.message);
       }
-      alert(result.message)
+      alert(result.message);
     } catch (err) {
       alert(err.message);
     }
@@ -74,6 +93,20 @@ const TourDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [tour]);
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars.push(
+        <i
+          key={i}
+          className="ri-star-fill"
+          style={{ color: "var(--secondary-color)", marginRight: "2px" }}
+        ></i>
+      );
+    }
+    return stars;
+  };
 
   return (
     <>
@@ -85,36 +118,30 @@ const TourDetails = () => {
             <Row>
               <Col lg="8">
                 <div className="tour__content">
-                  <img src={photo} alt="" />
+                  <img
+                    src={`https://jai.marketomobile.com/public/Images/Tour/${product_image}`}
+                    alt=""
+                  />
 
                   <div className="tour__info">
-                    <h2>{title}</h2>
+                    <h2>{name}</h2>
 
                     <div className="d-flex align-items-center gap-5">
-                      <span className="tour__rating d-flex align-items-center gap-1">
-                        <i
-                          class="ri-star-fill"
-                          style={{ color: "var(--secondary-color)" }}
-                        ></i>{" "}
-                        {avgRating === 0 ? null : avgRating}
-                        {totalRating === 0 ? (
-                          "Not Rated"
-                        ) : (
-                          <span>({reviews?.length})</span>
-                        )}
-                      </span>
+                      <div className="tour__rating d-flex align-items-center gap-1">
+                        {renderStars(rev)} <span>({rev})</span>
+                      </div>
 
                       <span>
                         <i class="ri-map-pin-user-fill"></i>
-                        {address}
+                        {main}
                       </span>
                     </div>
 
                     <div className="tour__extra-details">
-                      <span>
+                      {/* <span>
                         <i class="ri-map-pin-2-line"></i>
                         {city}
-                      </span>
+                      </span> */}
                       <span>
                         <i class="ri-money-dollar-circle-line"></i>
                         From {price} Rupees
@@ -125,16 +152,27 @@ const TourDetails = () => {
                       </span>
 
                       <span>
-                        <i class="ri-group-line"></i>
-                        {maxGroupSize} people
+                        <i
+                          className="ri-road-map-line"
+                          style={{ marginRight: "8px" }}
+                        ></i>
+                        {path}
                       </span>
                     </div>
                     <h5>Description</h5>
-                    <p>{desc}</p>
+                    {/* <p>{disc}</p> */}
+                    <ol
+                      style={{ listStyleType: "square" }}
+                      className="custom-list"
+                    >
+                      {arr?.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ol>
                   </div>
 
                   {/* Tour Reviews Section */}
-                  <div className="tour__reviews mt-4">
+                  {/* <div className="tour__reviews mt-4">
                     <h4>Reviews ({reviews?.length} reviews)</h4>
 
                     <Form onSubmit={submitHandler}>
@@ -197,7 +235,7 @@ const TourDetails = () => {
                         </div>
                       ))}
                     </ListGroup>
-                  </div>
+                  </div> */}
                 </div>
               </Col>
 
